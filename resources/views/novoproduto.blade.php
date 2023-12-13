@@ -1,4 +1,5 @@
 @extends('layout.app', ['current' => 'categorias'])
+@section('title', 'Cadastrar Produtos')
 
 @section('body')
     <div class="card border">

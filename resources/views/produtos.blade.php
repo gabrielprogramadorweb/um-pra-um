@@ -1,6 +1,5 @@
-<!-- Sua view Blade -->
-
 @extends('layout.app', ['current' => 'produtos'])
+@section('title', 'Produtos')
 
 @section('body')
     <div class="card border">

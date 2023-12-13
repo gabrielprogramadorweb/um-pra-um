@@ -1,5 +1,7 @@
 @extends('layout.app', ["current" => "home"])
 
+@section('title', 'Home')
+
 @section('body')
 
 <div class="container mt-5">
