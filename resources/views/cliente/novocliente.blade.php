@@ -30,7 +30,7 @@
                         <label for="email">E-mail do Cliente</label>
                         <input type="text" id="email" class="form-control" name="email" placeholder="E-mail do cliente" required>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Salvaar</button>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="window.history.back();">Cancelar</button>
                 </form>
             </div>
