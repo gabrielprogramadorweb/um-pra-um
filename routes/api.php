@@ -22,4 +22,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/categorias', 'ControladorCategoria@indexJson');
 
 Route::resource('/produtos', 'ControladorProduto');
+Route::get('/api/produtos', 'ProdutoController@index');
+Route::post('/api/produtos', 'ProdutoController@store');
+Route::put('/api/produtos/{id}', 'ProdutoController@update');
+Route::delete('/api/produtos/{id}', 'ProdutoController@destroy');
 

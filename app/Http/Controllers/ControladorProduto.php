@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Produto;
+use App\Categoria;
 
 class ControladorProduto extends Controller
 {
     public function indexView()
     {
-        return view('produtos');
+        $categorias = Categoria::all(); // Supondo que você tenha um modelo Categoria
+        return view('produtos', ['categorias' => $categorias]);
     }
-    
+
     public function index()
     {
         $prods = Produto::with('categoria')->get();
@@ -55,7 +57,7 @@ class ControladorProduto extends Controller
     {
         $prod = Produto::find($id);
         if (isset($prod)) {
-            return json_encode($prod);            
+            return json_encode($prod);
         }
         return response('Produto não encontrado', 404);
     }
@@ -108,20 +110,3 @@ class ControladorProduto extends Controller
         return response('Produto não encontrado', 404);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
