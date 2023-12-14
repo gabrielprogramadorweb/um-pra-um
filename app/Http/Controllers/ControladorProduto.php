@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 
 class ControladorProduto extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function indexView()
+    {
+        
+        return view('produtos');
+    }
     public function index()
     {
-        $produtos = Produto::with('categoria')->get();
-        return view('produtos', compact('produtos'));
+        $prods = Produto::all();
+        return $prods->toJson();
     }
 
     public function showForm()
@@ -24,6 +24,12 @@ class ControladorProduto extends Controller
         $categorias = Categoria::all();
         return view('novoproduto', compact('categorias'));
     }
+    public function showFormTela1()
+    {
+        $categorias = Categoria::all();
+        return view('produtos', compact('categorias'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
