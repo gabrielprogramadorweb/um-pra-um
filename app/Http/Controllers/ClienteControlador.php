@@ -36,13 +36,27 @@ class ClienteControlador extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+            
+
+        $regras = [
             'nome' => 'required|min:3|max:20|unique:clientes',
-            'idade' => 'required',
+            'idade' => 'required|numeric',
             'endereco' => 'required|min:5',
             'email' => 'required|email'
 
-        ]);
+        ];
+        $mensagens = [
+            'nome.required' => 'O campo nome é obrigatório.', 
+            'nome.min' => 'É necessário no mínimo 3 caracteres no nome.',
+            'email.required' => 'O campo email é obrigatório.',
+            'email.email' => 'Digite um endereço de email válido.',
+            'endereco.required' => 'O campo endereço é obrigatório.',
+            'idade.required' => 'O campo idade é obrigatório.',
+            'idade.numeric' => 'Apenas números neste campo.',
+            'endereco.min' => 'O endereco deve ter pelo menos 5 caracteres.'
+        ];
+
+        $request->validate($regras, $mensagens);
         $cliente = new Cliente();
 
         $cliente->nome = $request->input('nome');
