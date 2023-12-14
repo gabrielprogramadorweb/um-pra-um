@@ -19,14 +19,14 @@ Route::get('/', function () {
 });
 
 //Categorias
-Route::get('/categorias', 'ControladorCategoria@indexView');
+Route::get('/categorias', 'ControladorCategoria@index');
 Route::get('/categorias/novo', 'ControladorCategoria@create');
 Route::post('/categorias', 'ControladorCategoria@store');
 Route::get('/categorias/apagar/{id}', 'ControladorCategoria@destroy');
 Route::get('/categorias/editar/{id}', 'ControladorCategoria@edit');
 Route::post('/categorias/{id}', 'ControladorCategoria@update');
 //Produtos
-Route::get('/produtos', 'ControladorProduto@index');
+Route::get('/produtos', 'ControladorProduto@indexView');
 Route::get('/produtos/novo', 'ControladorProduto@showForm');
 Route::post('/produtos', 'ControladorProduto@store');
 Route::get('/produtos/apagar/{id}', 'ControladorProduto@destroy');

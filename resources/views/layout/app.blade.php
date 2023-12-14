@@ -16,7 +16,7 @@
 </head>
 <body>
    
-<div class="">
+<div class="container">
     @component('components/componente_navbar', ["current" => "current"])
 
     @endcomponent

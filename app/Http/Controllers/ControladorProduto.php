@@ -2,34 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Categoria;
-use App\Produto;
 use Illuminate\Http\Request;
+use App\Produto;
 
 class ControladorProduto extends Controller
 {
     public function indexView()
     {
-        
         return view('produtos');
     }
+    
     public function index()
     {
         $prods = Produto::all();
         return $prods->toJson();
     }
-
-    public function showForm()
-    {
-        $categorias = Categoria::all();
-        return view('novoproduto', compact('categorias'));
-    }
-    public function showFormTela1()
-    {
-        $categorias = Categoria::all();
-        return view('produtos', compact('categorias'));
-    }
-
 
     /**
      * Show the form for creating a new resource.
@@ -38,8 +25,7 @@ class ControladorProduto extends Controller
      */
     public function create()
     {
-        $categorias = Categoria::all();
-        return view('novoproduto', compact('categorias'));
+        //
     }
 
     /**
@@ -50,23 +36,28 @@ class ControladorProduto extends Controller
      */
     public function store(Request $request)
     {
-        $produto = new Produto();
-        $produto->nome = $request->input('nomeProduto');
-        $produto->estoque = $request->input('estoque');
-        $produto->preco = $request->input('preco');
+        $prod = new Produto();
+        $prod->nome = $request->input('nome');
+        $prod->preco = $request->input('preco');
+        $prod->estoque = $request->input('estoque');
+        $prod->categoria_id = $request->input('categoria_id');
+        $prod->save();
+        return json_encode($prod);
+    }
 
-        // Verifique se categoria_id está presente no request e não é nulo
-        if ($request->has('categoria_id') && $request->input('categoria_id') !== null) {
-            $produto->categoria_id = $request->input('categoria_id');
-        } else {
-            // Trate a situação em que categoria_id não está presente ou é nulo
-            // Pode ser útil redirecionar de volta ao formulário com uma mensagem de erro
-            return redirect('/produtos')->with('error', 'Categoria é obrigatória.');
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $prod = Produto::find($id);
+        if (isset($prod)) {
+            return json_encode($prod);            
         }
-
-        $produto->save();
-
-        return redirect('/produtos');
+        return response('Produto não encontrado', 404);
     }
 
     /**
@@ -77,13 +68,7 @@ class ControladorProduto extends Controller
      */
     public function edit($id)
     {
-        $produto = Produto::find($id);
-
-        // Recupere também as categorias, se necessário
-        $categorias = Categoria::all();
-
-        // Passe as variáveis para a visão
-        return view('editarproduto', compact('produto', 'categorias'));
+        //
     }
 
     /**
@@ -96,14 +81,15 @@ class ControladorProduto extends Controller
     public function update(Request $request, $id)
     {
         $prod = Produto::find($id);
-        if(isset($prod)) {
-            $prod->nome = $request->input('nomeProduto');
-            $prod->estoque = $request->input('estoque');
+        if (isset($prod)) {
+            $prod->nome = $request->input('nome');
             $prod->preco = $request->input('preco');
+            $prod->estoque = $request->input('estoque');
             $prod->categoria_id = $request->input('categoria_id');
             $prod->save();
+            return json_encode($prod);
         }
-        return redirect('/produtos');
+        return response('Produto não encontrado', 404);
     }
 
     /**
@@ -117,7 +103,25 @@ class ControladorProduto extends Controller
         $prod = Produto::find($id);
         if (isset($prod)) {
             $prod->delete();
+            return response('OK', 200);
         }
-        return redirect('/produtos');
+        return response('Produto não encontrado', 404);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
