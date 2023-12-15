@@ -78,7 +78,10 @@ Route::get('/inserir', function(){
 });
 
 Route::get('/clientes/json', function(){
-    $clientes = Cliente::all();
+    // $vareavel = Model::all(); <- chama todos dados da tabela, menos os atributos de terceiros.
+   $clientes = Cliente::all();
+   // $vareavel = Model::with(['nome_model_estrangeiro'])->get(); <-esse mostra todos dados da tabela e tambem dos atributos de terceiros.
+   $clientes = Cliente::with(['endereco'])->get();
     return $clientes->toJson();
     
     
