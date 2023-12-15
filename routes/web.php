@@ -79,10 +79,21 @@ Route::get('/inserir', function(){
 
 Route::get('/clientes/json', function(){
     // $vareavel = Model::all(); <- chama todos dados da tabela, menos os atributos de terceiros.
-   $clientes = Cliente::all();
+   //$clientes = Cliente::all();
    // $vareavel = Model::with(['nome_model_estrangeiro'])->get(); <-esse mostra todos dados da tabela e tambem dos atributos de terceiros.
    $clientes = Cliente::with(['endereco'])->get();
     return $clientes->toJson();
     
     
 });
+// O inverso:
+/*Route::get('/clientes/json', function(){
+    // $vareavel = Model::all(); <- chama todos dados da tabela, menos os atributos de terceiros.
+   //$enderecos = Endereco::all();
+   // $vareavel = Model::with(['nome_model_estrangeiro'])->get(); <-esse mostra todos dados da tabela e tambem dos atributos de terceiros.
+   $enderecos = Endereco::with(['cliente'])->get();
+    return $enderecos->toJson();
+    
+    
+});
+*/
