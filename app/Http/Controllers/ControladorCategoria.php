@@ -106,4 +106,5 @@ class ControladorCategoria extends Controller
         $cats = Categoria::all();
         return json_encode($cats);
     }
+    
 }
